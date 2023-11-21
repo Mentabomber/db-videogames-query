@@ -1,7 +1,3 @@
-# db-videogames-query
-Esercizio del 21/11/2023 su query sql 
-
-
 SELECT
 
 1- Selezionare tutte le software house americane (3)
@@ -88,13 +84,25 @@ JOIN
 
 1- Selezionare i dati di tutti giocatori che hanno scritto almeno una recensione, mostrandoli una sola volta (996)
 
-
+SELECT DISTINCT players.* FROM players JOIN reviews ON players.id = reviews.player_id;
 
 2- Sezionare tutti i videogame dei tornei tenuti nel 2016, mostrandoli una sola volta (226)
 
+SELECT DISTINCT videogames.name FROM videogames JOIN tournament_videogame ON videogames.id = tournament_videogame.videogame_id JOIN tournaments  ON tournament_videogame.tournament_id = tournaments.id WHERE tournaments.year = 2016;
+
 3- Mostrare le categorie di ogni videogioco (1718)
 
+SELECT videogames.id as videogames, categories.name
+FROM categories
+JOIN category_videogame ON categories.id = category_videogame.category_id
+JOIN videogames  ON category_videogame.videogame_id = videogames.id
+
 4- Selezionare i dati di tutte le software house che hanno rilasciato almeno un gioco dopo il 2020, mostrandoli una sola volta (6)
+
+SELECT DISTINCT software_houses.*
+FROM software_houses
+JOIN videogames ON videogames.software_house_id = software_houses.id
+WHERE year(videogames.release_date) > 2020;
 
 5- Selezionare i premi ricevuti da ogni software house per i videogiochi che ha prodotto (55)
 
